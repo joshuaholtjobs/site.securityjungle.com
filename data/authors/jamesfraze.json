@@ -1,0 +1,11 @@
+{
+  "name": "James Fraze",
+  "image": "img/jamesfraze.jpg",
+  "bio": "Principal Implementation Engineer",
+  "social": [
+    { "linkedin": "https://linkedin.com/in/digitalcrunch" },
+    { "twitter": "https://twitter.com/frazemarketing" },
+    { "instagram": "https://instagram.com/frazemarketing" },
+    { "github": "https://github.com/rubysash" }
+  ]
+}

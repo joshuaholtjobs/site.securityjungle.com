@@ -11,8 +11,8 @@ autoSwitchAppearance = true
 
 enableA11y = false
 enableSearch = true
-enableCodeCopy = false
-enableStructuredBreadcrumbs = false
+enableCodeCopy = true
+enableStructuredBreadcrumbs = true
 # enableStyledScrollbar = true # disable to use native scrollbar style (defaults to true)
 
 replyByEmail = false
@@ -31,9 +31,9 @@ disableTextInHeader = false
 hotlinkFeatureImage = false
 # imagePosition = "50% 50%"
 
-# highlightCurrentMenuArea = true
-# smartTOC = true
-# smartTOCHideUnfocusedChildren = true
+highlightCurrentMenuArea = true
+smartTOC = true
+smartTOCHideUnfocusedChildren = true
 
 fingerprintAlgorithm = "sha512" # Valid values are "sha512" (default), "sha384", "sha256"
 
@@ -46,12 +46,12 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [footer]
   showMenu = true
   showCopyright = true
-  showThemeAttribution = true
-  showAppearanceSwitcher = true
+  showThemeAttribution = false
+  showAppearanceSwitcher = false
   showScrollToTop = true
 
 [homepage]
-  layout = "profile" # valid options: page, profile, hero, card, background, custom
+  layout = "background" # valid options: page, profile, hero, card, background, custom
   #homepageImage = "IMAGE.jpg" # used in: hero, and card
   showRecent = false
   showRecentItems = 5
@@ -84,14 +84,14 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showPagination = true
   invertPagination = false
   showReadingTime = true
-  showTableOfContents = false
+  showTableOfContents = true
   # showRelatedContent = false
   # relatedContentLimit = 3
-  showTaxonomies = false # use showTaxonomies OR showCategoryOnly, not both
+  showTaxonomies = true # use showTaxonomies OR showCategoryOnly, not both
   showCategoryOnly = false # use showTaxonomies OR showCategoryOnly, not both
   showAuthorsBadges = false
   showWordCount = true
-  # sharingLinks = [ "linkedin", "twitter", "bluesky", "mastodon", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram", "line"]
+  sharingLinks = [ "linkedin", "twitter", "bluesky", "mastodon", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram", "line"]
   showZenMode = false
   # externalLinkForceNewTab = false # disable to allow external links in the same tab (defaults to true)
 
@@ -107,7 +107,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showTableOfContents = false
   showCards = false
   orderByWeight = false
-  groupByYear = true
+  groupByYear = false
   cardView = false
   cardViewScreenWidth = false
   constrainItemsWidth = false
@@ -160,9 +160,9 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   # token = "XXXXXX"
   # enableTrackEvent = true
 
-[buymeacoffee]
+#[buymeacoffee]
   # identifier = ""
-  # globalWidget = true
+  # globalWidget = false
   # globalWidgetMessage = "Hello"
   # globalWidgetColor = "#FFDD00"
   # globalWidgetPosition = "right"
