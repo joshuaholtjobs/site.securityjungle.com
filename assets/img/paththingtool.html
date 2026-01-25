@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Path Recorder v2</title>
+    <style>
+        :root { --accent: #00f2ff; --bg: #1a1a1a; --panel: #2a2a2a; }
+        body { background: var(--bg); color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
+        #app-header { width: 1003px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        #canvas-wrapper { position: relative; width: 1003px; height: 703px; background: #000; border: 2px solid #444; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        #svg-layer, #grid-layer, #draw-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        #interaction-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair; }
+        #controls { margin-top: 20px; width: 1003px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: var(--panel); padding: 20px; border-radius: 8px; box-sizing: border-box; }
+        .panel-section { display: flex; flex-direction: column; gap: 10px; }
+        textarea { width: 100%; height: 120px; background: #000; color: var(--accent); border: 1px solid #444; font-family: 'Consolas', monospace; padding: 10px; border-radius: 4px; resize: none; }
+        button { padding: 10px 15px; cursor: pointer; background: #1e3a5f; color: white; border: none; border-radius: 4px; font-weight: bold; transition: 0.2s; }
+        button:hover { background: #345c8d; }
+        button.secondary { background: #444; }
+        .stats { font-size: 0.8em; color: #888; }
+        #coord-pill { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 20px; color: var(--accent); font-family: monospace; border: 1px solid var(--accent); z-index: 100; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div id="app-header">
+        <h2>Circuit Trace Tool</h2>
+        <div class="panel-section" style="flex-direction: row; align-items: center;">
+            <input type="file" id="file-input" accept=".svg" style="display:none">
+            <button class="secondary" onclick="document.getElementById('file-input').click()">Upload SVG File</button>
+            <button onclick="loadFromText()">Load From Textarea</button>
+        </div>
+    </div>
+
+    <div id="canvas-wrapper">
+        <div id="svg-layer"></div>
+        
+        <svg id="grid-layer">
+            <defs>
+                <pattern id="minorGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+                    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+                </pattern>
+                <pattern id="majorGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#minorGrid)" />
+            <rect width="100%" height="100%" fill="url(#majorGrid)" />
+        </svg>
+
+        <svg id="draw-layer" viewBox="0 0 1003 703">
+            <path id="traced-path" d="" fill="none" stroke="#00f2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <div id="interaction-layer"></div>
+        <div id="coord-pill">X: 0, Y: 0</div>
+    </div>
+
+    <div id="controls">
+        <div class="panel-section">
+            <label>Input SVG Code (Paste Here):</label>
+            <textarea id="svg-input" placeholder="Paste your <svg>...</svg> here..."></textarea>
+        </div>
+        <div class="panel-section">
+            <label>Output Path Data (Generated):</label>
+            <textarea id="svg-output" readonly placeholder="Click on the circuit to start tracing..."></textarea>
+            <div style="display:flex; gap:10px;">
+                <button onclick="undo()" style="flex:1">Undo</button>
+                <button onclick="clearCanvas()" style="flex:1" class="secondary">Clear</button>
+                <button onclick="copyOutput()" style="flex:1">Copy Result</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const svgLayer = document.getElementById('svg-layer');
+        const drawLayer = document.getElementById('draw-layer');
+        const tracedPath = document.getElementById('traced-path');
+        const interaction = document.getElementById('interaction-layer');
+        const output = document.getElementById('svg-output');
+        const input = document.getElementById('svg-input');
+        const coordPill = document.getElementById('coord-pill');
+        const fileInput = document.getElementById('file-input');
+
+        let points = [];
+
+        // 1. Loading Logic
+        function loadFromText() {
+            const raw = input.value;
+            if (raw.includes('<svg')) {
+                svgLayer.innerHTML = raw;
+                // Ensure child SVG fills container
+                const innerSvg = svgLayer.querySelector('svg');
+                if (innerSvg) {
+                    innerSvg.setAttribute('width', '1003');
+                    innerSvg.setAttribute('height', '703');
+                }
+            }
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (f) => {
+                input.value = f.target.result;
+                loadFromText();
+            };
+            reader.readAsText(file);
+        });
+
+        // 2. Interaction Logic
+        interaction.addEventListener('mousemove', (e) => {
+            const rect = interaction.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+            coordPill.innerText = `X: ${x}, Y: ${y}`;
+        });
+
+        interaction.addEventListener('click', (e) => {
+            const rect = interaction.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+            points.push({x, y});
+            updateDraw();
+        });
+
+        function updateDraw() {
+            if (points.length === 0) {
+                tracedPath.setAttribute('d', '');
+                output.value = '';
+                return;
+            }
+            let d = `M ${points[0].x} ${points[0].y}`;
+            for (let i = 1; i < points.length; i++) {
+                d += ` L ${points[i].x} ${points[i].y}`;
+            }
+            tracedPath.setAttribute('d', d);
+            output.value = d;
+        }
+
+        function undo() { points.pop(); updateDraw(); }
+        function clearCanvas() { points = []; updateDraw(); }
+        function copyOutput() {
+            output.select();
+            document.execCommand('copy');
+            alert('Path data copied to clipboard!');
+        }
+    </script>
+</body>
+</html>

@@ -4,7 +4,11 @@ description: "Step by Step Installation"
 showTableOfContents: true
 series: ["Hugo Installation"]
 series_order: 4
+weight: 40
 lastmod: "2026-01-25T00:18:00-06:00"
+tags: ["hugo"]
+type: 'hugo'
+
 ---
 
 ## Explain workflow reference
@@ -184,7 +188,7 @@ Netlify project -> General -> Password protection -> Configure password
 
 ---
 
-## Search/replace helper (PowerShell) to remove demo Firebase API keys
+## Search/replace
 Use only if needed (exampleSite content often includes demo keys).
 
     $old = 'SomeSecretorBad'

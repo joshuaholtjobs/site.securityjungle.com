@@ -1,20 +1,20 @@
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "Digital Crunch"
+title = "Digital Crunch  - AI Automation Implementation Engineers"
 
 [params]
   displayName = "English"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  logo = "img/jamesfraze.jpg"
+  logo = "/img/dc_logo.png"
   description = "We solve technical problems, with a smile!"
 
 [params.author]
   name = "James Fraze"
   email = "james@jamesfraze.com"
-  image = "img/jamesfraze.jpg"
+  image = "/img/jamesfraze.jpg"
   headline = "Principal Implementation Engineer"
   bio = "I solve technical problems, with a smile!"
   links = [

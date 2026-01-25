@@ -2,10 +2,25 @@
 title: "Hugo Overview"
 description: "Hugo Basics"
 showTableOfContents: true
+weight: 20
 series: ["Hugo Installation"]
 series_order: 2
 lastmod: "2026-01-25T00:18:00-06:00"
+tags: ["hugo"]
+type: 'hugo'
 ---
+
+{{< mermaid >}}
+graph LR;
+    A[Write in Markdown] --> B[Confirm on Local Server];
+    B --> C[Publish to GitHub Private];
+    C --> D[Distribute Via CI/CD to CDN]
+
+    style A fill:#f9f,stroke:#000,stroke-width:3px,color:#000
+    style B fill:#bbf,stroke:#000,stroke-width:3px,color:#000
+    style C fill:#bfb,stroke:#000,stroke-width:3px,color:#000
+    style D fill:#fdb,stroke:#000,stroke-width:3px,color:#000
+{{< /mermaid >}}
 
 # Hugo build and deploy notes
 
