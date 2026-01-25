@@ -16,8 +16,8 @@
   weight = 10
 
 [[main]]
-  name = "Shortcodes"
-  pageRef = "docs/shortcodes"
+  name = "Tools"
+  pageRef = "tools"
   weight = 15
 
 
