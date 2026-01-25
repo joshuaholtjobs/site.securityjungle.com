@@ -1,5 +1,5 @@
 ---
-title: "SVG Pro-Tracer"
+title: "SVG Tracer"
 date: 2026-01-25
 layout: "full"
 fullWidth: true
