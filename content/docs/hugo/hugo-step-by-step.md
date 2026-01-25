@@ -187,8 +187,8 @@ Netlify project -> General -> Password protection -> Configure password
 ## Search/replace helper (PowerShell) to remove demo Firebase API keys
 Use only if needed (exampleSite content often includes demo keys).
 
-    $old = 'AIzaSyB5tqlqDky77Vb4Tc4apiHV4hRZI18KGiY'
-    $new = 'apikeyhere'
+    $old = 'SomeSecretorBad'
+    $new = 'PlaceholderAPIText'
     Get-ChildItem -Path "D:\sites\site.demodocs.jamesfraze\themes\blowfish\exampleSite" -Recurse -File |
       ForEach-Object {
         $c = Get-Content $_.FullName -Raw
