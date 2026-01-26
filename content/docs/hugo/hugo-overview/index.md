@@ -10,31 +10,69 @@ tags: ["hugo"]
 type: 'hugo'
 ---
 
-{{< mermaid >}}
-graph LR;
-    A[Write in Markdown] --> B[Confirm on Local Server];
-    B --> C[Publish to GitHub Private];
-    C --> D[Distribute Via CI/CD to CDN]
-
-    style A fill:#f9f,stroke:#000,stroke-width:3px,color:#000
-    style B fill:#bbf,stroke:#000,stroke-width:3px,color:#000
-    style C fill:#bfb,stroke:#000,stroke-width:3px,color:#000
-    style D fill:#fdb,stroke:#000,stroke-width:3px,color:#000
-{{< /mermaid >}}
-
 # Hugo build and deploy notes
 
-We are going to setup hugo on windows to use github and netlify for free hosting of static pages that are fast and secure.
+We are going to setup hugo on windows to use github and netlify for free hosting of static pages that are fast and secure.  The times I have listed are without AI.  AI GREATLY speeds up this process by 8x or more.    Of course it takes longer the first time but you get faster at it.   Out of the box, you don't "NEED" to design anything.  The theme does that.  AI can create wonderful content in minutes, but you might spend 1-2 hours verifying, fixing, updating, and polishing it.   
+
+You will almost entirely stay in the "Publish" category of workflow once things are setup.
+
+{{< process-steps >}}
+step: Setup
+- 2-4hrs Approx
+- (Required, Once)
+- Install Go
+- Install Git
+- Install Hugo
+- Init Repo
+- Netlify Project
+- Domain Name 
+- Twiddle
+
+step: Design
+- 2-8hrs + Changes
+- Choose theme
+- Edit hugo.toml
+- Customize CSS
+- Optional Short Codes
+
+step: Publish
+- 1-2 hours Manually
+- Write in Markdown
+- Confirm Locally
+- Push to GitHub
+
+step: Deploy
+- (Automatic/3min)
+- CI triggers
+- CDN delivery
+{{< /process-steps >}}
+
+The rest of this is going to be an overview so you get the basic understanding of the tech and terms behind what you're doing.   To be honest, you don't need to learn much, but it's intimidating the first time.
 
 ## Overview
-### Terms
-- Hugo (Extended)
-- Go (for Hugo Modules and some toolchains)
-- Dart Sass (only if your theme requires SCSS compilation outside Hugo Pipes)
-- Tailwind (only if your theme requires Node-based asset builds)
-- Sitemaps and robots.txt
-- JSON-LD and schema.org
-- Schema reference: https://dpb587.me/entries/add-schema-org-json-ld-to-hugo-templates-20251024
+### Related Terms
+<dl>
+  <dt>Hugo (Extended)</dt>
+  <dd>The Hugo build with the extended feature set used for asset processing (Hugo Pipes, SCSS, etc.).</dd>
+
+  <dt>Go</dt>
+  <dd>Used by Hugo Modules and some theme/tooling workflows.</dd>
+
+  <dt>Dart Sass</dt>
+  <dd>Only needed if your theme requires SCSS compilation outside Hugo Pipes.</dd>
+
+  <dt>Tailwind</dt>
+  <dd>Only needed if your theme requires Node-based asset builds.</dd>
+
+  <dt>Sitemaps and robots.txt</dt>
+  <dd>Site discovery and crawler control. Hugo can generate sitemaps; robots.txt can be generated or custom.</dd>
+
+  <dt>JSON-LD and schema.org</dt>
+  <dd>Structured data to help search engines understand entities and page intent.</dd>
+
+  <dt>Schema reference</dt>
+  <dd><a href="https://dpb587.me/entries/add-schema-org-json-ld-to-hugo-templates-20251024">dpb587.me: Add schema.org JSON-LD to Hugo templates</a></dd>
+</dl>
 
 ### Audience
 - Who this is for
@@ -115,4 +153,4 @@ Tool setups (optional):
 - hugo server
 - push changes
 
----
+
