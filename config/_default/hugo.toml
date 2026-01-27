@@ -3,7 +3,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish"
-baseURL = "https://workers.digitalcrunch.com"
+baseURL = "https://securityjungle.com"
 defaultContentLanguage = "en"
 disableLanguages = ["de", "es", "fr", "it", "ja", "pt-br", "pt-pt", "zh-cn"] #to allow translation work requiring shipping to production
 

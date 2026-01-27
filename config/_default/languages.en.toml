@@ -1,7 +1,7 @@
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "Digital Crunch  - AI Automation Implementation Engineers"
+title = "Security Jungle - Data Backup Solutions"
 
 [params]
   displayName = "English"
@@ -12,14 +12,14 @@ title = "Digital Crunch  - AI Automation Implementation Engineers"
   description = "We solve technical problems, with a smile!"
 
 [params.author]
-  name = "James Fraze"
-  email = "james@jamesfraze.com"
-  image = "/img/jamesfraze.jpg"
-  headline = "Principal Implementation Engineer"
-  bio = "I solve technical problems, with a smile!"
+  name = "Joshua Fraze"
+  email = "josh@securityjungle.com"
+  image = "/img/joshfraze.jpg"
+  headline = "Data Backup Expert"
+  bio = "I protect your data!"
   links = [
-    { "linkedin" = "https://linkedin.com/in/digitalcrunch" },
-    { "twitter" = "https://twitter.com/frazemarketing" },
-    { "instagram" = "https://instagram.com/frazemarketing" },
-    { "github" = "https://github.com/rubysash" }
+    { "linkedin" = "https://linkedin.com/in/securityjungle" },
+    { "twitter" = "https://twitter.com/securityjungle" },
+    { "instagram" = "https://instagram.com/securityjungle" },
+    { "github" = "https://github.com/securityjungle" }
   ]
