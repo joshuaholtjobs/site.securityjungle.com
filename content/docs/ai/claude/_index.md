@@ -1,7 +1,16 @@
 ---
 title: "Claude"
-description: "Claude Related"
+description: "Claude Notes"
+
+cascade:
+  showDate: false
+  showAuthor: false
+  invertPagination: true
 ---
+
+## Claude Notes
+
 {{< lead >}}
-Stuff...
+Setup Claude Stuff
 {{< /lead >}}
+

@@ -336,3 +336,214 @@ nav.toc .toc-tracker:has(#TableOfContents > ul > li > ul > li > a[aria-current="
   font-weight: 400 !important;
   font-size: 22px !important;
 }
+
+
+/* process steps */
+.process-steps {
+  margin: 2rem 0;
+  font-family: inherit;
+  width: 100%;
+  max-width: 100%;
+}
+
+.process-steps__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.process-steps__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.process-steps__step {
+  padding: 0.65rem 0.9rem;
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-radius: 8px;
+  font-weight: 800;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.process-steps__title {
+  color: #1a1a1a;
+  font-size: 1rem;
+  line-height: 1.1;
+  display: block;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.process-steps__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.process-steps__arrow--right {
+  align-self: flex-start;
+  margin-top: 0.95rem;
+}
+
+.process-steps__arrow--right svg {
+  width: 18px;
+  height: 18px;
+}
+
+.process-steps__arrow--down {
+  margin: 0.25rem 0;
+}
+
+.process-steps__arrow--down svg {
+  width: 16px;
+  height: 16px;
+}
+
+.process-steps__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.45rem 0.55rem;
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.process-steps__list li {
+  color: #1a1a1a;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.22rem 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.process-steps__list li:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.dark .process-steps__title,
+.dark .process-steps__list li {
+  color: #1a1a1a;
+}
+
+@media (max-width: 760px) {
+  .process-steps__row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .process-steps__cell {
+    flex: 1 1 320px;
+    min-width: 260px;
+    max-width: 520px;
+  }
+
+  .process-steps__arrow--right {
+    display: none;
+  }
+}
+
+/* category cards */
+/* Category Cards - Uniform styling for grouped information */
+.category-cards {
+  margin: 2rem 0;
+  font-family: inherit;
+  width: 100%;
+  max-width: 100%;
+}
+.category-cards__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.category-cards__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.category-cards__header {
+  padding: 0.65rem 0.9rem;
+  background: #1e3a5f;
+  border: 2px solid #1E3A8A;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+.category-cards__title {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  display: block;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.category-cards__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.25rem 0;
+}
+.category-cards__arrow svg {
+  width: 16px;
+  height: 16px;
+}
+.category-cards__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.45rem 0.55rem;
+  background: #fff8c5;
+  border: 2px solid #839FAD;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.category-cards__list li {
+  color: #0E1219;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.25rem 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.category-cards__list li:not(:last-child) {
+  border-bottom: 1px solid rgba(14, 18, 25, 0.15);
+}
+@media (max-width: 760px) {
+  .category-cards__row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .category-cards__cell {
+    flex: 1 1 320px;
+    min-width: 260px;
+    max-width: 520px;
+  }
+}

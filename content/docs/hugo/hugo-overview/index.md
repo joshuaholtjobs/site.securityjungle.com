@@ -1,13 +1,11 @@
 ---
 title: "Hugo Overview"
-description: "Hugo Basics"
-showTableOfContents: true
 weight: 20
+description: "Hugo Basics"
+tags: ["hugo"]
 series: ["Hugo Installation"]
 series_order: 2
-lastmod: "2026-01-25T00:18:00-06:00"
-tags: ["hugo"]
-type: 'hugo'
+showTableOfContents: true
 ---
 
 # Hugo build and deploy notes
@@ -17,7 +15,7 @@ We are going to setup hugo on windows to use github and netlify for free hosting
 You will almost entirely stay in the "Publish" category of workflow once things are setup.
 
 {{< process-steps >}}
-step: Setup
+## Setup
 - 2-4hrs Approx
 - (Required, Once)
 - Install Go
@@ -28,20 +26,20 @@ step: Setup
 - Domain Name 
 - Twiddle
 
-step: Design
+## Design
 - 2-8hrs + Changes
 - Choose theme
 - Edit hugo.toml
 - Customize CSS
 - Optional Short Codes
 
-step: Publish
+## Publish
 - 1-2 hours Manually
 - Write in Markdown
 - Confirm Locally
 - Push to GitHub
 
-step: Deploy
+## Deploy
 - (Automatic/3min)
 - CI triggers
 - CDN delivery
@@ -49,7 +47,6 @@ step: Deploy
 
 The rest of this is going to be an overview so you get the basic understanding of the tech and terms behind what you're doing.   To be honest, you don't need to learn much, but it's intimidating the first time.
 
-## Overview
 ### Related Terms
 <dl>
   <dt>Hugo (Extended)</dt>

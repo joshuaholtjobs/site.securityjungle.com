@@ -7,7 +7,6 @@ series_order: 3
 weight: 30
 lastmod: "2026-01-25T00:18:00-06:00"
 tags: ["hugo"]
-type: 'hugo'
 ---
 ## Prerequisites
 

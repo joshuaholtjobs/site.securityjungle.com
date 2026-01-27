@@ -1,0 +1,48 @@
+{{ $raw := .Inner }}
+{{ $cards := slice }}
+{{ $currentCard := dict }}
+{{ $currentItems := slice }}
+{{ range split $raw "\n" }}
+  {{ $line := trim . " \t\r" }}
+  {{ if hasPrefix $line "## " }}
+    {{ if $currentCard.title }}
+      {{ $currentCard = merge $currentCard (dict "items" $currentItems) }}
+      {{ $cards = $cards | append $currentCard }}
+    {{ end }}
+    {{ $title := trim (strings.TrimPrefix "## " $line) " " }}
+    {{ $currentCard = dict "title" $title }}
+    {{ $currentItems = slice }}
+  {{ else if hasPrefix $line "- " }}
+    {{ $item := trim (strings.TrimPrefix "- " $line) " " }}
+    {{ $currentItems = $currentItems | append $item }}
+  {{ end }}
+{{ end }}
+{{ if $currentCard.title }}
+  {{ $currentCard = merge $currentCard (dict "items" $currentItems) }}
+  {{ $cards = $cards | append $currentCard }}
+{{ end }}
+{{ $count := len $cards }}
+{{ if gt $count 4 }}{{ $count = 4 }}{{ end }}
+<div class="category-cards category-cards--{{ $count }}">
+  <div class="category-cards__row">
+    {{ range $i, $card := first $count $cards }}
+      <div class="category-cards__cell">
+        <div class="category-cards__header">
+          <span class="category-cards__title">{{ $card.title }}</span>
+        </div>
+        {{ if $card.items }}
+          <div class="category-cards__arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2">
+              <path d="M12 5v14M5 13l7 7 7-7"></path>
+            </svg>
+          </div>
+          <ul class="category-cards__list">
+            {{ range $card.items }}
+              <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+</div>

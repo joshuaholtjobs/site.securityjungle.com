@@ -2,15 +2,14 @@
 {{ $steps := slice }}
 {{ $currentStep := dict }}
 {{ $currentSubsteps := slice }}
-
 {{ range split $raw "\n" }}
   {{ $line := trim . " \t\r" }}
-  {{ if hasPrefix $line "step:" }}
+  {{ if hasPrefix $line "## " }}
     {{ if $currentStep.title }}
       {{ $currentStep = merge $currentStep (dict "substeps" $currentSubsteps) }}
       {{ $steps = $steps | append $currentStep }}
     {{ end }}
-    {{ $title := trim (strings.TrimPrefix "step:" $line) " " }}
+    {{ $title := trim (strings.TrimPrefix "## " $line) " " }}
     {{ $currentStep = dict "title" $title }}
     {{ $currentSubsteps = slice }}
   {{ else if hasPrefix $line "- " }}
@@ -18,48 +17,51 @@
     {{ $currentSubsteps = $currentSubsteps | append $substep }}
   {{ end }}
 {{ end }}
-
 {{ if $currentStep.title }}
   {{ $currentStep = merge $currentStep (dict "substeps" $currentSubsteps) }}
   {{ $steps = $steps | append $currentStep }}
 {{ end }}
-
 {{ $count := len $steps }}
+{{ if gt $count 4 }}{{ $count = 4 }}{{ end }}
+{{ $bgRed := "#fed7d7" }}
+{{ $bgOrange := "#fef3c7" }}
+{{ $bgYellow := "#fefcbf" }}
+{{ $bgGreen := "#c6f6d5" }}
+{{ $stRed := "#c53030" }}
+{{ $stOrange := "#c05621" }}
+{{ $stYellow := "#b7791f" }}
+{{ $stGreen := "#276749" }}
 {{ $colors := slice }}
-{{ if eq $count 3 }}
-  {{ $colors = slice "#fed7d7" "#fefcbf" "#c6f6d5" }}
-{{ else if eq $count 4 }}
-  {{ $colors = slice "#fed7d7" "#fef3c7" "#fefcbf" "#c6f6d5" }}
-{{ else if eq $count 5 }}
-  {{ $colors = slice "#fed7d7" "#fecaca" "#fef3c7" "#fefcbf" "#c6f6d5" }}
-{{ else }}
-  {{ $colors = slice "#fed7d7" "#fef3c7" "#fefcbf" "#c6f6d5" }}
-{{ end }}
-
 {{ $strokes := slice }}
-{{ if eq $count 3 }}
-  {{ $strokes = slice "#c53030" "#b7791f" "#276749" }}
-{{ else if eq $count 4 }}
-  {{ $strokes = slice "#c53030" "#c05621" "#b7791f" "#276749" }}
-{{ else if eq $count 5 }}
-  {{ $strokes = slice "#c53030" "#dc2626" "#c05621" "#b7791f" "#276749" }}
+{{ if eq $count 1 }}
+  {{ $colors = slice $bgGreen }}
+  {{ $strokes = slice $stGreen }}
+{{ else if eq $count 2 }}
+  {{ $colors = slice $bgYellow $bgGreen }}
+  {{ $strokes = slice $stYellow $stGreen }}
+{{ else if eq $count 3 }}
+  {{ $colors = slice $bgOrange $bgYellow $bgGreen }}
+  {{ $strokes = slice $stOrange $stYellow $stGreen }}
 {{ else }}
-  {{ $strokes = slice "#c53030" "#c05621" "#b7791f" "#276749" }}
+  {{ $colors = slice $bgRed $bgOrange $bgYellow $bgGreen }}
+  {{ $strokes = slice $stRed $stOrange $stYellow $stGreen }}
 {{ end }}
-
 <div class="process-steps process-steps--{{ $count }}">
   <div class="process-steps__row">
-    {{ range $i, $step := $steps }}
+    {{ range $i, $step := first $count $steps }}
       {{ $bg := index $colors $i }}
       {{ $border := index $strokes $i }}
+      {{ $t := $step.title }}
+      {{ $t = replaceRE "\\s*&\\s*" "\n&\n" $t }}
+      {{ $t = replaceRE "[ \\t]+" " " $t }}
       <div class="process-steps__cell">
         <div class="process-steps__step" style="background: {{ $bg }}; border-color: {{ $border }};">
-          <span class="process-steps__title">{{ $step.title }}</span>
+          <span class="process-steps__title">{{ $t }}</span>
         </div>
         {{ if $step.substeps }}
           <div class="process-steps__arrow process-steps__arrow--down">
             <svg viewBox="0 0 24 24" fill="none" stroke="{{ $border }}" stroke-width="2">
-              <path d="M12 5v14M5 13l7 7 7-7"/>
+              <path d="M12 5v14M5 13l7 7 7-7"></path>
             </svg>
           </div>
           <ul class="process-steps__list" style="background: {{ $bg }}; border-color: {{ $border }};">
@@ -70,130 +72,12 @@
         {{ end }}
       </div>
       {{ if lt $i (sub $count 1) }}
-        <div class="process-steps__arrow process-steps__arrow--right">
+        <div class="process-steps__arrow process-steps__arrow--right" style="color: {{ $border }};">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M13 5l7 7-7 7"/>
+            <path d="M5 12h14M13 5l7 7-7 7"></path>
           </svg>
         </div>
       {{ end }}
     {{ end }}
   </div>
 </div>
-
-<style>
-.process-steps {
-  margin: 2rem 0;
-  font-family: inherit;
-  border: none !important;
-  border-left: none !important;
-  padding-left: 0 !important;
-}
-
-.process-steps__row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0;
-  flex-wrap: nowrap;
-  border: none !important;
-  border-left: none !important;
-}
-
-.process-steps__cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: none !important;
-  border-left: none !important;
-}
-
-.process-steps--3 .process-steps__cell { width: 140px; }
-.process-steps--4 .process-steps__cell { width: 130px; }
-.process-steps--5 .process-steps__cell { width: 110px; }
-
-.process-steps__step {
-  padding: 0.5rem 1.25rem;
-  border: 2px solid;
-  border-left: 2px solid !important;
-  border-radius: 6px;
-  font-weight: 700;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.process-steps__title {
-  color: #1a1a1a;
-  font-size: 1rem;
-}
-
-.process-steps__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-neutral-400, #94a3b8);
-  flex-shrink: 0;
-}
-
-.process-steps__arrow--right {
-  padding: 0 0.25rem;
-  align-self: flex-start;
-  margin-top: 0.6rem;
-}
-
-.process-steps__arrow--right svg {
-  width: 18px;
-  height: 18px;
-}
-
-.process-steps__arrow--down {
-  margin: 0.2rem 0;
-}
-
-.process-steps__arrow--down svg {
-  width: 16px;
-  height: 16px;
-}
-
-.process-steps__list {
-  list-style: none;
-  margin: 0;
-  padding: 0.4rem 0.6rem;
-  border: 2px solid;
-  border-left: 2px solid !important;
-  border-radius: 6px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.process-steps__list li {
-  color: #1a1a1a;
-  font-size: 0.75rem;
-  font-weight: 400;
-  padding: 0.2rem 0;
-  text-align: center;
-}
-
-.process-steps__list li:not(:last-child) {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.dark .process-steps__title,
-.dark .process-steps__list li {
-  color: #1a1a1a;
-}
-
-@media (max-width: 640px) {
-  .process-steps__row {
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  
-  .process-steps__cell {
-    width: 45% !important;
-  }
-  
-  .process-steps__arrow--right {
-    display: none;
-  }
-}
-</style>

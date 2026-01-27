@@ -7,8 +7,6 @@ series_order: 4
 weight: 40
 lastmod: "2026-01-25T00:18:00-06:00"
 tags: ["hugo"]
-type: 'hugo'
-
 ---
 
 ## Explain workflow reference
