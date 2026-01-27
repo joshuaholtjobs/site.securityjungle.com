@@ -1,4 +1,4 @@
 ---
-title: "Chromebook"
-description: "Chromebook Related"
+title: "Schema"
+description: "Schema Stuff"
 ---

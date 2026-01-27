@@ -8,5 +8,5 @@ cascade:
 ---
 
 {{< lead >}}
-Simple, yet powerful. Learn how to use Blowfish and its features.
+Documentation related to the work for digitalcrunch.com
 {{< /lead >}}

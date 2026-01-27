@@ -1,4 +1,4 @@
 ---
-title: "Gemini"
-description: "just gemini related"
+title: "AI"
+description: "AI Stuff"
 ---

@@ -1,4 +1,8 @@
 ---
-title: "Schema"
-description: "Schema Notes"
+title: "Chromebook"
+description: "Chromebook Notes"
 ---
+
+{{< lead >}}
+Chromebook Stuff...
+{{< /lead >}}
